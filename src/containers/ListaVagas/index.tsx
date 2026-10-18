@@ -3,7 +3,7 @@ import FormVagas from '../../components/FormVagas'
 
 import Vaga from '../../components/Vaga'
 
-import styles from './ListaVagas.module.css'
+import * as S from './styles'
 
 type Vaga = {
   id: string
@@ -80,7 +80,7 @@ const vagas = [
   {
     id: 7,
     titulo: 'Desenvolvedor front-end',
-    localizacao: 'São Paulo/SP',
+    localizacao: 'S�o Paulo/SP',
     nivel: 'junior',
     modalidade: 'clt',
     salarioMin: 4000,
@@ -92,14 +92,14 @@ const vagas = [
 const ListaVagas = () => {
   const [filtro, setFiltro] = useState<string>('')
 
-  const vagasFiltradas = vagas.filter(
-    (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
+  const vagasFiltradas = vagas.filter((x) =>
+    x.titulo.toLocaleLowerCase().includes(filtro)
   )
 
   return (
     <div>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
+      <S.List>
         {vagasFiltradas.map((vag) => (
           <Vaga
             key={vag.id}
@@ -112,7 +112,7 @@ const ListaVagas = () => {
             requisitos={vag.requisitos}
           />
         ))}
-      </ul>
+      </S.List>
     </div>
   )
 }
